@@ -1,19 +1,19 @@
-environment {
-    DOCKERHUB_CREDENTIALS = credentials('dockerhub')
-}
-
 node('jenkins-slave') {
     stage('clone git') {
         git branch: 'main', url: 'https://github.com/radiolacattor/for_harness.git'
     }
 
     stage('build') {
-        dockerImage = docker.build("radiolacattor/nginx_for_harness:v1")
+
+        dir ('.') {
+                sh 'docker build -t radiolacattor/nginx_for_harness:v1 .'
+        }
     }
 
     stage('login') {
-        docker.withRegistry('https://hub.docker.com/', 'DOCKERHUB_CREDENTIALS') {
-      dockerImage.push()
+        withCredentials([string(credentialsId: 'DOCKERHUB', variable: 'DOCKERHUB')]) {
+        sh 'docker login -u radiolacattor -p ${DOCKERHUB}'
+        }
     }
 
     stage('image push') {
