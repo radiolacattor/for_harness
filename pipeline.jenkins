@@ -1,5 +1,5 @@
 node('jenkins-slave'){
-stages {
+
     stage('build'){
          steps {
          		
@@ -7,6 +7,5 @@ stages {
             	sh 'docker build -t radiolacattor/nginx_for_harness .'
     	  	}    
          }
-		}
     }
 }
