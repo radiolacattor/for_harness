@@ -1,0 +1,22 @@
+node('jenkins-slave') {
+    stage('clone git') {
+        git branch: 'main', url: 'https://github.com/radiolacattor/for_harness.git'
+    }
+
+    stage('build') {
+
+        dir ('./image_v2') {
+                sh 'docker build -t radiolacattor/nginx_for_harness:v1.3 .'
+        }
+    }
+
+    stage('login') {
+        withCredentials([string(credentialsId: 'DOCKERHUB', variable: 'DOCKERHUB')]) {
+        sh 'docker login -u radiolacattor -p ${DOCKERHUB}'
+        }
+    }
+
+    stage('image push') {
+        sh 'docker push radiolacattor/nginx_for_harness:v1.3'
+    }
+}

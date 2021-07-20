@@ -5,8 +5,8 @@ node('jenkins-slave') {
 
     stage('build') {
 
-        dir ('.') {
-                sh 'docker build -t radiolacattor/nginx_for_harness:v1 .'
+        dir ('./image_v1') {
+                sh 'docker build -t radiolacattor/nginx_for_harness:v1.2 .'
         }
     }
 
@@ -17,6 +17,6 @@ node('jenkins-slave') {
     }
 
     stage('image push') {
-        sh 'docker push radiolacattor/nginx_for_harness:v1'
+        sh 'docker push radiolacattor/nginx_for_harness:v1.2'
     }
 }
