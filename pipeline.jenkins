@@ -1,17 +1,12 @@
-
-pipeline {
-
-agent any
-
+node('jenkins-slave'){
 stages {
     stage('build'){
          steps {
          		
            		dir ('./') {
             	sh 'docker build -t radiolacattor/nginx_for_harness .'
-    	           	}
-		            
+    	  	}    
+         }
 		}
-        }
     }
 }
