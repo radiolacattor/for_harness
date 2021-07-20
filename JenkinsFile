@@ -1,0 +1,24 @@
+environment {
+    DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+}
+
+node('jenkins-slave') {
+    stage('clone git') {
+        git branch: 'main', url: 'https://github.com/radiolacattor/for_harness.git'
+    }
+
+    stage('build') {
+
+        dir ('.') {
+                sh 'docker build -t radiolacattor/nginx_for_harness:v1 .'
+        }
+    }
+
+    stage('login') {
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+    }
+
+    stage('image push') {
+        sh 'docker push radiolacattor/nginx_for_harness:v1'
+    }
+}
