@@ -1,11 +1,15 @@
 node('jenkins-slave'){
 
+    stage('clone git') {
+        git branch: 'main', url: 'https://github.com/radiolacattor/for_harness.git'
+    }
+
     stage('build'){
         
          		
-           		
+           		dir ('./for_harness/') {
             	sh 'docker build -t radiolacattor/nginx_for_harness .'
-    	  	   
+    	  	}    
          
     }
 }
