@@ -7,7 +7,7 @@ node('jenkins-slave'){
     stage('build'){
         
          		
-           		dir ('./for_harness/') {
+           		dir ('.') {
             	sh 'docker build -t radiolacattor/nginx_for_harness .'
     	  	}    
          
