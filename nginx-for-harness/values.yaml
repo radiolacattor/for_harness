@@ -8,8 +8,8 @@ image:
   repository: radiolacattor/nginx_for_harness
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ${artifact.metadata.tag}
-  # tag: "v1.8"
+  # tag: ${artifact.metadata.tag}
+  tag: "v1.8"
 
 imagePullSecrets: []
 nameOverride: "nginx"
