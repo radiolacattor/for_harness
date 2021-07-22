@@ -6,7 +6,7 @@ node('jenkins-slave') {
     stage('build') {
 
         dir ('./image_v3') {
-                sh 'docker build -t radiolacattor/nginx_for_harness:v1.6 .'
+                sh 'sudo docker build -t radiolacattor/nginx_for_harness:v1.6 .'
         }
     }
 
